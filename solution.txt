@@ -1,0 +1,28 @@
+pragma solidity >=0.4.25 <0.7.0;
+
+contract School {
+    struct Student {
+        string name;
+        uint age;
+    }
+
+    mapping(address => Student) students;
+    address[] studentsAddresses;
+
+    function getStudent(address _address) public view returns (string memory, uint) {
+        return(students[_address].name, students[_address].age);
+    }
+
+    function setStudent(address _address, string memory _name, uint _age) public {
+        if (students[_address].age == 0) {
+            studentsAddresses.push(_address);
+        }
+
+        students[_address].age = _age;
+        students[_address].name = _name;
+    }
+
+    function getStudentsCount() public view returns (uint) {
+        return studentsAddresses.length;
+    }
+}
